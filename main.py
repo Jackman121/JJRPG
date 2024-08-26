@@ -2,7 +2,7 @@
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-import pygame, Enemy, Player, Combat_Engine, os
+import pygame, Characters, Combat_Engine, os
 
 PLAYER_STRIKE = 0
 ENEMY_STRIKE = 1
@@ -13,8 +13,8 @@ pygame.init()
 
 pygame.display.set_caption("JJRPG")
 
-Enemy1 = Enemy.Enemy("Unferda Brandon",100, 50, 15)
-Player = Player.Player("Jack", 100, 50, 25)
+Enemy1 = Characters.NPC("Unferda Brandon",100, 50, 15)
+Player = Characters.Player("Jack", 100, 50, 25)
 Combat_Engine = Combat_Engine.Combat_Engine()
 
 print(Enemy1)
