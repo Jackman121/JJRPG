@@ -4,18 +4,23 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import pygame, Characters, Combat_Engine, os
 
+#Set constants
 PLAYER_STRIKE = 0
 ENEMY_STRIKE = 1
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 600
+dt = 0
 
+#Initialize engines as well as characters and display name
 pygame.init()
-
+Combat_Engine = Combat_Engine.Combat_Engine()
+screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
+clock = pygame.time.Clock()
 pygame.display.set_caption("JJRPG")
 
-Enemy1 = Characters.NPC("Unferda Brandon",100, 50, 15)
+#Create 2 characters and perform a combat action
+Enemy1 = Characters.NPC("Unferda Brandon",125, 50, 15)
 Player = Characters.Player("Jack", 100, 50, 25)
-Combat_Engine = Combat_Engine.Combat_Engine()
 
 print(Enemy1)
 print(Player)
@@ -24,11 +29,10 @@ Combat_Engine.combat(Player, Enemy1, PLAYER_STRIKE)
 
 print(Enemy1)
 
-screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
-clock = pygame.time.Clock()
-dt = 0
 
+
+#Set up some rudimentary visuals
 enemy_pos = pygame.Vector2(screen.get_width() - screen.get_width() / 4, screen.get_height() / 2)
 player_pos = pygame.Vector2(screen.get_width() / 4, screen.get_height() / 2)
 
