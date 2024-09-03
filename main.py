@@ -78,8 +78,15 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
+    screen.fill('black')
     #screen.blit(attackBOOTON,(SCREEN_WIDTH / 4 + 35, SCREEN_HEIGHT / 2 - 50))
-    attack_button.draw(screen)
+    if attack_button.draw(screen):
+        Combat_Engine.combat(Player, Enemy1, PLAYER_STRIKE)
+        print(Enemy1.get_health())
+        enemy_hp = font.render(Enemy1.get_health(), True, "white", "black")
+        #enemy_hp_rect = enemy_hp.get_rect()
+        #enemy_hp_rect.center = (SCREEN_WIDTH - SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 - 75)
+
 
     pygame.draw.circle(screen, "green", player_pos, 40)
     pygame.draw.circle(screen, "red", enemy_pos, 40)

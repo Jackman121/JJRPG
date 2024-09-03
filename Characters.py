@@ -10,6 +10,8 @@ class Character:
 
     def health_loss(self, health_lost):
         self.health = self.health - health_lost
+        if self.health < 0:
+            self.health = 0
 
     def get_health(self):
         return f'{self.health}'
