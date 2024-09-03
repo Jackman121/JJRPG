@@ -2,7 +2,7 @@
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-import pygame, Characters, Combat_Engine, os
+import pygame, Characters, Combat_Engine, os, button
 
 #Set constants
 PLAYER_STRIKE = 0
@@ -17,6 +17,17 @@ Combat_Engine = Combat_Engine.Combat_Engine()
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 pygame.display.set_caption("JJRPG")
+attackBOOTON_sprites_sheet = pygame.image.load("./Assets/attackBOOTONS.png").convert_alpha()
+
+
+#Function to cut a single sprite from a sheet
+def get_sprite(sprite_sheet, width, height,scale):
+    image = pygame.Surface((width, height)).convert_alpha()
+    image.blit(sprite_sheet,(0,0), (0,0,width,height))
+    image = pygame.transform.scale(image, (width * scale, height * scale))
+    return image
+
+attackBOOTON = get_sprite(attackBOOTON_sprites_sheet,188, 192, 0.2)
 
 #Create 2 characters and perform a combat action
 Enemy1 = Characters.NPC("Unferda Brandon",125, 50, 15)
@@ -25,7 +36,7 @@ Player = Characters.Player("Jack", 100, 50, 25)
 print(Enemy1)
 print(Player)
 
-Combat_Engine.combat(Player, Enemy1, PLAYER_STRIKE)
+#Combat_Engine.combat(Player, Enemy1, PLAYER_STRIKE)
 
 print(Enemy1)
 
@@ -55,6 +66,9 @@ enemy_hp_rect = enemy_hp.get_rect()
 player_hp_rect.center = (SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 - 75)
 enemy_hp_rect.center = (SCREEN_WIDTH - SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 - 75)
 
+#Make attack button
+attack_button = button.Button(SCREEN_WIDTH / 4 + 35, SCREEN_HEIGHT / 2 - 50, attackBOOTON, 1)
+
 
 #Pygame loop
 run = True
@@ -63,6 +77,9 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+
+    #screen.blit(attackBOOTON,(SCREEN_WIDTH / 4 + 35, SCREEN_HEIGHT / 2 - 50))
+    attack_button.draw(screen)
 
     pygame.draw.circle(screen, "green", player_pos, 40)
     pygame.draw.circle(screen, "red", enemy_pos, 40)
