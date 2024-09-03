@@ -44,14 +44,17 @@ font = pygame.font.Font('freesansbold.ttf', 32)
 
 # create a text surface object,
 # on which text is drawn on it.
-text = font.render(Player.get_health(), True, "white", "black")
-
+player_hp = font.render(Player.get_health(), True, "white", "black")
+enemy_hp = font.render(Enemy1.get_health(), True, "white", "black")
 # create a rectangular object for the
 # text surface object
-textRect = text.get_rect()
+player_hp_rect = player_hp.get_rect()
+enemy_hp_rect = enemy_hp.get_rect()
 
 # set the center of the rectangular object.
-textRect.center = (SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 - 75)
+player_hp_rect.center = (SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 - 75)
+enemy_hp_rect.center = (SCREEN_WIDTH - SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 - 75)
+
 
 #Pygame loop
 run = True
@@ -64,7 +67,8 @@ while run:
     pygame.draw.circle(screen, "green", player_pos, 40)
     pygame.draw.circle(screen, "red", enemy_pos, 40)
 
-    screen.blit(text, textRect)
+    screen.blit(player_hp, player_hp_rect)
+    screen.blit(enemy_hp, enemy_hp_rect)
 
 
 
