@@ -52,8 +52,8 @@ font = pygame.font.Font('freesansbold.ttf', 32)
 
 # create a text surface object,
 # on which text is drawn on it.
-player_hp = font.render(Player.get_health(), True, "white", "black")
-enemy_hp = font.render(Enemy1.get_health(), True, "white", "black")
+player_hp = font.render(Player.get_health(), True, "white")
+enemy_hp = font.render(Enemy1.get_health(), True, "white")
 # create a rectangular object for the
 # text surface object
 player_hp_rect = player_hp.get_rect()
@@ -81,7 +81,7 @@ while run:
     if attack_button.draw(screen):
         Combat_Engine.combat(Player, Enemy1, PLAYER_STRIKE)
         print(Enemy1.get_health())
-        enemy_hp = font.render(Enemy1.get_health(), True, "white", "black")
+        enemy_hp = font.render(Enemy1.get_health(), True, "white")
         #enemy_hp_rect = enemy_hp.get_rect()
         #enemy_hp_rect.center = (SCREEN_WIDTH - SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 - 75)
 
