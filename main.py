@@ -10,6 +10,7 @@ ENEMY_STRIKE = 1
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 600
 dt = 0
+BLACK = (0,0,0)
 
 #Initialize engines as well as characters and display name
 pygame.init()
@@ -25,13 +26,14 @@ war_background = pygame.transform.scale(war_background, (SCREEN_WIDTH, SCREEN_HE
 
 
 #Function to cut a single sprite from a sheet
-def get_sprite(sprite_sheet, width, height,scale):
+def get_sprite(sprite_sheet, width, height,scale, color):
     image = pygame.Surface((width, height)).convert_alpha()
     image.blit(sprite_sheet,(0,0), (0,0,width,height))
     image = pygame.transform.scale(image, (width * scale, height * scale))
+    image.set_colorkey(color)
     return image
 
-attackBOOTON = get_sprite(attackBOOTON_sprites_sheet,188, 192, 0.2)
+attackBOOTON = get_sprite(attackBOOTON_sprites_sheet,188, 192, 0.2, BLACK)
 
 #Create 2 characters and perform a combat action
 Enemy1 = Characters.NPC("Unferda Brandon",125, 50, 15)
@@ -93,7 +95,7 @@ while run:
 
 
 
-    pygame.display.update()
+    pygame.display.flip()
     dt = clock.tick(60) / 1000
 
 pygame.quit()
