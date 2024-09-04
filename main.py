@@ -18,6 +18,10 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 pygame.display.set_caption("JJRPG")
 attackBOOTON_sprites_sheet = pygame.image.load("./Assets/attackBOOTONS.png").convert_alpha()
+war_background = pygame.image.load("./Assets/War_Background.png").convert_alpha()
+war_background = pygame.transform.scale(war_background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+
+
 
 
 #Function to cut a single sprite from a sheet
@@ -32,15 +36,6 @@ attackBOOTON = get_sprite(attackBOOTON_sprites_sheet,188, 192, 0.2)
 #Create 2 characters and perform a combat action
 Enemy1 = Characters.NPC("Unferda Brandon",125, 50, 15)
 Player = Characters.Player("Jack", 100, 50, 25)
-
-print(Enemy1)
-print(Player)
-
-#Combat_Engine.combat(Player, Enemy1, PLAYER_STRIKE)
-
-print(Enemy1)
-
-
 
 
 #Set up some rudimentary visuals
@@ -78,7 +73,8 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-    screen.fill('black')
+    screen.blit(war_background, war_background.get_rect())
+
     #screen.blit(attackBOOTON,(SCREEN_WIDTH / 4 + 35, SCREEN_HEIGHT / 2 - 50))
     if attack_button.draw(screen):
         Combat_Engine.combat(Player, Enemy1, PLAYER_STRIKE)
