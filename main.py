@@ -1,7 +1,3 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import pygame, Characters, Combat_Engine, os, button
 
 #Set constants
@@ -18,12 +14,9 @@ Combat_Engine = Combat_Engine.Combat_Engine()
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 pygame.display.set_caption("JJRPG")
-attackBOOTON_sprites_sheet = pygame.image.load("./Assets/attackBOOTONS.png").convert_alpha()
-war_background = pygame.image.load("./Assets/War_Background.png").convert_alpha()
+attack_button_sprites_sheet = pygame.image.load("Assets/attack_button_spritesheet.png").convert_alpha()
+war_background = pygame.image.load("Assets/daytime_war_background.png").convert_alpha()
 war_background = pygame.transform.scale(war_background, (SCREEN_WIDTH, SCREEN_HEIGHT))
-
-
-
 
 #Function to cut a single sprite from a sheet
 def get_sprite(sprite_sheet, width, height,scale, color):
@@ -33,9 +26,7 @@ def get_sprite(sprite_sheet, width, height,scale, color):
     image.set_colorkey(color)
     return image
 
-attackBOOTON = get_sprite(attackBOOTON_sprites_sheet,188, 192, 0.2, BLACK)
-
-#Create 2 characters and perform a combat action
+#Create a player character and enemy NPC
 Enemy1 = Characters.NPC("Unferda Brandon",125, 50, 15)
 Player = Characters.Player("Jack", 100, 50, 25)
 
@@ -58,13 +49,13 @@ enemy_hp = font.render(Enemy1.get_health(), True, "white")
 # text surface object
 player_hp_rect = player_hp.get_rect()
 enemy_hp_rect = enemy_hp.get_rect()
-
 # set the center of the rectangular object.
 player_hp_rect.center = (SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 - 75)
 enemy_hp_rect.center = (SCREEN_WIDTH - SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 - 75)
 
 #Make attack button
-attack_button = button.Button(SCREEN_WIDTH / 4 + 35, SCREEN_HEIGHT / 2 - 50, attackBOOTON, 1)
+melee_attack_button_sprite = get_sprite(attack_button_sprites_sheet, 188, 192, 0.2, BLACK)
+melee_attack_button = button.Button(SCREEN_WIDTH / 4 + 35, SCREEN_HEIGHT / 2 - 50, melee_attack_button_sprite, 1)
 
 
 #Pygame loop
@@ -77,13 +68,11 @@ while run:
 
     screen.blit(war_background, war_background.get_rect())
 
-    #screen.blit(attackBOOTON,(SCREEN_WIDTH / 4 + 35, SCREEN_HEIGHT / 2 - 50))
-    if attack_button.draw(screen):
+    if melee_attack_button.draw(screen):
         Combat_Engine.combat(Player, Enemy1, PLAYER_STRIKE)
-        print(Enemy1.get_health())
+        print(f'{Enemy1.get_name()}\'s health is now {Enemy1.get_health()}')
         enemy_hp = font.render(Enemy1.get_health(), True, "white")
-        #enemy_hp_rect = enemy_hp.get_rect()
-        #enemy_hp_rect.center = (SCREEN_WIDTH - SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 - 75)
+
 
 
     pygame.draw.circle(screen, "green", player_pos, 40)
