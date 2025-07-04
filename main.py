@@ -18,15 +18,16 @@ clock = pygame.time.Clock()
 pygame.display.set_caption("JJRPG")
 attack_button_sprites_sheet = pygame.image.load("Assets/attack_button_spritesheet.png").convert_alpha()
 # Jack_Of_Hearts_sprites_sheet = pygame.image.load("Assets/Cards/jack_of_hearts.png").convert_alpha()
+player_sprite_sheet = pygame.image.load("Assets/Character_Sprite_Sheets/Raider_1/Idle.png").convert_alpha()
 war_background = pygame.image.load("Assets/daytime_war_background.png").convert_alpha()
 war_background = pygame.transform.scale(war_background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 Player_Hand = []
 Deck = []
 
 #Function to cut a single sprite from a sheet
-def get_sprite(sprite_sheet, width, height,scale, color):
+def get_sprite(sprite_sheet, origin_height, frame, width, height,scale, color):
     image = pygame.Surface((width, height)).convert_alpha()
-    image.blit(sprite_sheet,(0,0), (0,0,width,height))
+    image.blit(sprite_sheet,(0,0), ((frame * width), origin_height ,width,height))
     image = pygame.transform.scale(image, (width * scale, height * scale))
     image.set_colorkey(color)
     return image
@@ -59,8 +60,17 @@ player_hp_rect.center = (SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10)
 enemy_hp_rect.center = (SCREEN_WIDTH - SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10)
 
 #Make attack button
-melee_attack_button_sprite = get_sprite(attack_button_sprites_sheet, 188, 192, 0.2, BLACK)
+melee_attack_button_sprite = get_sprite(attack_button_sprites_sheet, 0, 0,188, 192, 0.2, BLACK)
 melee_attack_button = button.Button(SCREEN_WIDTH / 4 + 35, SCREEN_HEIGHT / 2 - 50, melee_attack_button_sprite, 1)
+
+#Make player sprite
+player_sprite_frame_0 = get_sprite(player_sprite_sheet, 63,0,128, 128, 2, BLACK)
+player_sprite_frame_1 = get_sprite(player_sprite_sheet, 63,1,128, 128, 2, BLACK)
+player_sprite_frame_2 = get_sprite(player_sprite_sheet, 63,2,128, 128, 2, BLACK)
+player_sprite_frame_3 = get_sprite(player_sprite_sheet, 63,3,128, 128, 2, BLACK)
+player_sprite_frame_4 = get_sprite(player_sprite_sheet, 63,4,128, 128, 2, BLACK)
+player_sprite_frame_5 = get_sprite(player_sprite_sheet, 63,5,128, 128, 2, BLACK)
+# player_button = button.Button(screen.get_width() / 4, screen.get_height() / 2, player_sprite, 1)
 
 #Make card
 # Jack_of_hearts_sprite = get_sprite(Jack_Of_Hearts_sprites_sheet, 640, 928, 0.2, BLACK)
@@ -70,6 +80,9 @@ melee_attack_button = button.Button(SCREEN_WIDTH / 4 + 35, SCREEN_HEIGHT / 2 - 5
 
 #Pygame loop
 run = True
+frame = 0
+framerate = 0
+frame_forward = True
 
 while run:
     for event in pygame.event.get():
@@ -81,6 +94,78 @@ while run:
 
     melee_attack_button.draw(screen)
 
+
+    match frame:
+
+        case 0:
+            print("Frame 0")
+            screen.blit(player_sprite_frame_0, (screen.get_width() / 8, screen.get_height() / 2.5))
+            framerate = framerate + 1
+
+            if framerate == 20:
+                framerate = 0
+                frame = frame + 1
+                frame_forward = True
+
+        case 1:
+            print("Frame 1")
+            screen.blit(player_sprite_frame_1, (screen.get_width() / 8, screen.get_height() / 2.5))
+            framerate = framerate + 1
+
+            if framerate == 20:
+                framerate = 0
+                if frame_forward == True:
+                    frame = frame + 1
+                else:
+                    frame = frame - 1
+        case 2:
+            print("Frame 2")
+            screen.blit(player_sprite_frame_2, (screen.get_width() / 8, screen.get_height() / 2.5))
+            framerate = framerate + 1
+
+            if framerate == 20:
+                framerate = 0
+                if frame_forward == True:
+                    frame = frame + 1
+                else:
+                    frame = frame - 1
+        case 3:
+            print("Frame 3")
+            screen.blit(player_sprite_frame_3, (screen.get_width() / 8, screen.get_height() / 2.5))
+            framerate = framerate + 1
+
+            if framerate == 20:
+                framerate = 0
+                if frame_forward == True:
+                    frame = frame + 1
+                else:
+                    frame = frame - 1
+        case 4:
+            print("Frame 4")
+            screen.blit(player_sprite_frame_4, (screen.get_width() / 8, screen.get_height() / 2.5))
+            framerate = framerate + 1
+
+            if framerate == 20:
+                framerate = 0
+                if frame_forward == True:
+                    frame = frame + 1
+                else:
+                    frame = frame - 1
+        case 5:
+            print("Frame 5")
+            screen.blit(player_sprite_frame_5, (screen.get_width() / 8, screen.get_height() / 2.5))
+            framerate = framerate + 1
+
+            if framerate == 20:
+                framerate = 0
+                frame_forward = False
+                frame = frame - 1
+
+
+
+    # player_button.draw(screen)
+
+
     if melee_attack_button.on_click():
         Combat_Engine.combat(Player, Enemy1, PLAYER_STRIKE)
         print(f'{Enemy1.get_name()}\'s health is now {Enemy1.get_health()}')
@@ -91,8 +176,8 @@ while run:
 
 
 
-    pygame.draw.circle(screen, "green", player_pos, 40)
-    pygame.draw.circle(screen, "red", enemy_pos, 40)
+    # pygame.draw.circle(screen, "green", player_pos, 40)
+    # pygame.draw.circle(screen, "red", enemy_pos, 40)
 
     screen.blit(player_hp, player_hp_rect)
     screen.blit(enemy_hp, enemy_hp_rect)
