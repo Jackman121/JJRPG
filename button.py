@@ -11,11 +11,16 @@ class Button():
 		self.clicked = False
 
 	def draw(self, surface):
+		#draw button on screen
+		image = self.image.convert_alpha()
+		surface.blit(image, (self.rect.x, self.rect.y))
+
+	def on_click(self):
 		action = False
-		#get mouse position
+		# get mouse position
 		pos = pygame.mouse.get_pos()
 
-		#check mouseover and clicked conditions
+		# check mouseover and clicked conditions
 		if self.rect.collidepoint(pos):
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
 				self.clicked = True
@@ -23,9 +28,5 @@ class Button():
 
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
-
-		#draw button on screen
-		image = self.image.convert_alpha()
-		surface.blit(image, (self.rect.x, self.rect.y))
 
 		return action

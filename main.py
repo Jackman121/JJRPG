@@ -59,8 +59,8 @@ player_hp_rect.center = (SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10)
 enemy_hp_rect.center = (SCREEN_WIDTH - SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10)
 
 #Make attack button
-#melee_attack_button_sprite = get_sprite(attack_button_sprites_sheet, 188, 192, 0.2, BLACK)
-#melee_attack_button = button.Button(SCREEN_WIDTH / 4 + 35, SCREEN_HEIGHT / 2 - 50, melee_attack_button_sprite, 1)
+melee_attack_button_sprite = get_sprite(attack_button_sprites_sheet, 188, 192, 0.2, BLACK)
+melee_attack_button = button.Button(SCREEN_WIDTH / 4 + 35, SCREEN_HEIGHT / 2 - 50, melee_attack_button_sprite, 1)
 
 #Make card
 # Jack_of_hearts_sprite = get_sprite(Jack_Of_Hearts_sprites_sheet, 640, 928, 0.2, BLACK)
@@ -77,11 +77,14 @@ while run:
             run = False
 
     #screen.blit(war_background, war_background.get_rect())
+    screen.fill("black")
 
-    #if melee_attack_button.draw(screen):
-        #Combat_Engine.combat(Player, Enemy1, PLAYER_STRIKE)
-        #print(f'{Enemy1.get_name()}\'s health is now {Enemy1.get_health()}')
-        #enemy_hp = font.render(Enemy1.get_health(), True, "white")
+    melee_attack_button.draw(screen)
+
+    if melee_attack_button.on_click():
+        Combat_Engine.combat(Player, Enemy1, PLAYER_STRIKE)
+        print(f'{Enemy1.get_name()}\'s health is now {Enemy1.get_health()}')
+        enemy_hp = font.render(Enemy1.get_health(), True, "white")
 
     # if Jack_of_hearts_Card.draw(screen):
     #     print("Clicked")
